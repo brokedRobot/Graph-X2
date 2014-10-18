@@ -73,12 +73,13 @@
 		gs = new GX2System({
 			name: 'gs1',
 			container: document.getElementById('gs_container_1'),
-			createGameArea: createGameArea,
+			createArea: createArea,
 			firstarea: 'initial',
 			autocenter: true,
 			tweenupdating: true,
 			sideborder: true,
-			pauseonblur: true
+			pauseonblur: true,
+			attachpath: '../'
 		});
 
 		window.onresize = function(){
@@ -125,7 +126,7 @@
 
 //**************  GAME AREAS  *******************//
 
-function createGameArea(name, opts){
+function createArea(name, opts){
 
 	var camera = gs.camera;
 	
