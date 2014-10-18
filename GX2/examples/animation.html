@@ -14,12 +14,12 @@
 		}
 	</style>
 	
-	<script src="../../../js/jquery.js"></script>
+	<!--<script src="../../../js/jquery.js"></script>
 	<script src="../../../js/utils.js"></script>
 	<script src="../../../js/storage.js"></script>
 	<script src="../../../js/tween.js"></script>
 	<script src="../../../js/upload.js"></script>
-	<script src="../../../js/peer.js"></script>
+	<script src="../../../js/peer.js"></script>-->
 	
 	<script src="../three/Three59.js"></script>
 	<script src="../shaders/EffectComposer.js"></script>
@@ -36,13 +36,11 @@
 	<script src="../utils/AES.js"></script>
 	<script src="../physics/p2.js"></script>
 	<script src="../physics/p2.extras.js"></script>
-	<script src="../2DgsUtilities.js"></script>
-	<script src="../2Dgs.js"></script>
-	<script src="../2DgsControls.js"></script>
-	<script src="../2DgsSystem.js"></script>
-	<script src="../2DgsSetupPhysics.js"></script>
-	<script src="../2DgsVisualizers.js"></script>
-	<script src="../2DgsGameState.js"></script>
+	<script src="../GX2Utilities.js"></script>
+	<script src="../GX2.js"></script>
+	<script src="../GX2Controls.js"></script>
+	<script src="../GX2System.js"></script>
+	<script src="../GX2Visualizers.js"></script>
 	
 </head>
 
@@ -52,7 +50,7 @@
 
 <script> 
 
-/* Simple 2Dgs Example Script   
+/* Simple GX2 Example Script   
  * @author brokedRobot / http://www.prismshards.com/
  */
 
@@ -72,7 +70,7 @@
 
 		windowready = true;
 		
-		gs = new GameSystem({
+		gs = new GX2System({
 			name: 'gs1',
 			container: document.getElementById('gs_container_1'),
 			createGameArea: createGameArea,
@@ -85,8 +83,8 @@
 
 		window.onresize = function(){
 		
-			winW = $(window).width(); conW = oldconW;
-			winH = $(window).height(); conH = oldconH; 
+			winW = window.innerWidth; conW = oldconW;
+			winH = window.innerHeight; conH = oldconH; 
 			
 			var maxsize = winH*1.50; var leftoffset = 0;
 			
@@ -106,13 +104,6 @@
 			}
 		
 			for (var i=0; i<systems.length; i++) systems[i].resize();
-			
-			$('#mainchatpane').css({
-				width: (winW * 0.72) + 'px',
-				height: (winW * 0.56) + 'px',
-				right: (winW * 0.00) + 'px',
-				top: (winW * 0.00) + 'px'
-			});
 			
 		}
 		
@@ -158,7 +149,7 @@ function createGameArea(name, opts){
 //*******************************Initial Area***********************************// 
     case 'initial':
 	
-        var thisarea = new GameArea({name: 'initial', graphscale: 1, system: gs});
+        var thisarea = new GX2Area({name: 'initial', graphscale: 1, system: gs});
 
 		var cat = thisarea.addPicture({filename: '../resources/images/sprites/cat.png',
 			position: vec3( 0, 0, 50 ), opacity: 1,
