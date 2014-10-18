@@ -1,0 +1,17 @@
+Thanks to the many people who write open source software and examples and white papers that have helped me put things like this together.  You are AWESOME!!!
+
+Some of these include but are not limited to:
+
+Dr. Stemkoski
+Mr. Doob
+Altered Qualia
+Squarefeet
+Aerotwist
+Outside of Society
+Schteppe
+Chandler Prall
+iq (shadertoy)
+
+
+
+I will keep adding to this list as I remember and find names.
