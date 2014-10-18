@@ -1948,15 +1948,15 @@
 			if (this.autocenter){
 				if (this.container){
 					this.container.style.position = 'absolute';
-					this.container.style.width = (window.innerWidth - this.container.offsetWidth)/2;
-					this.container.style.height = (window.innerHeight - this.container.offsetHeight)/2;
+					this.container.style.width = ((window.innerWidth - this.container.offsetWidth)/2)+'px';
+					this.container.style.height = ((window.innerHeight - this.container.offsetHeight)/2)+'px';
 				}
 			}
 			
 			if (this.container.children[0]){
 				this.container.style.position = 'absolute';
-				this.container.style.left = (this.container.offsetWidth - this.container.children[0].offsetWidth)/2;
-				this.container.style.top = (this.container.offsetHeight - this.container.children[0].offsetHeight)/2;
+				this.container.style.left = ((this.container.offsetWidth - this.container.children[0].offsetWidth)/2)+'px';
+				this.container.style.top = ((this.container.offsetHeight - this.container.children[0].offsetHeight)/2)+'px';
 			}
 			
 		}	
