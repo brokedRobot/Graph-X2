@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html id="htmlcontainer">
+
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Simple Example</title>
+	<meta charset="utf-8">
+	<style>
+		body {
+			font-family: Monospace;
+			font-weight: bold;
+			background-color: black; /*white;*/
+			margin: 0px;
+			overflow: hidden;
+		}
+		@font-face {
+			font-family: 'asenine';
+			src: url('er/fonts/asenine.ttf');
+		}
+		@font-face {
+			font-family: 'oldenglish';
+			src: url('er/fonts/oldenglish.ttf');
+		}
+	</style>
+	
+	<script src="../../../js/jquery.js"></script>
+	<script src="../../../js/utils.js"></script>
+	<script src="../../../js/storage.js"></script>
+	<script src="../../../js/tween.js"></script>
+	<script src="../../../js/upload.js"></script>
+	<script src="../../../js/peer.js"></script>
+	
+	<script src="../three/Three59.js"></script>
+	<script src="../shaders/EffectComposer.js"></script>
+	<script src="../shaders/ShaderExtras.js"></script>
+	<script src="../shaders/ShaderPasses.js"></script>
+	<script src="../shaders/ShaderParticleEmitter.js"></script>
+    <script src="../shaders/ShaderParticleGroup.js"></script>
+	<script src="../utils/KeyboardState.js"></script>
+	<script src="../utils/FullScreen.js"></script>
+	<script src="../utils/FixedQueue.js"></script>
+	<script src="../utils/SimplexNoise.js"></script>
+	<script src="../utils/Detector.js"></script>
+	<script src="../utils/GamePad.js"></script>
+	<script src="../utils/AES.js"></script>
+	<script src="../physics/p2.js"></script>
+	<script src="../physics/p2.extras.js"></script>
+	<script src="../2DgsUtilities.js"></script>
+	<script src="../2Dgs.js"></script>
+	<script src="../2DgsControls.js"></script>
+	<script src="../2DgsSystem.js"></script>
+	<script src="../2DgsSetupPhysics.js"></script>
+	<script src="../2DgsVisualizers.js"></script>
+	<script src="../2DgsGameState.js"></script>
+	
+</head>
+
+<body id="thebody">
+
+	<div id="message" class="absolutecentered" style="display: none;"></div> 
+
+<script> 
+
+/* Simple ../../2Dgs Example Script   
+ * @author brokedRobot / http://www.prismshards.com/
+ */
+
+	var gs;
+	var windowready = false;
+
+	var winW = 0; var conW = 0; var oldconW = 0;
+	var winH = 0; var conH = 0; var oldconH = 0;
+
+	window.onbeforeunload = function(e) {
+		if (gs && gs.areasinmemory) 
+			setLocalDBObject('areasinmemory', gs.areasinmemory);
+	};
+	 
+	function beginGS(){
+
+		windowready = true;
+		console.log('docready');
+		
+		gs = new GameSystem({
+			container: document.getElementById('gs_container_1'),
+			createGameArea: createGameArea,
+			firstarea: 'initial',
+			//autoClear: true,
+			//autoresize: true,
+			autocenter: true,
+			//screenmode: 'full',
+			tweenupdating: true,
+			sideborder: true,
+			//particlescale: 120,
+			pauseonblur: true
+		});
+
+		window.onresize = function(){
+		
+			console.log('resize');
+		
+			winW = $(window).width(); conW = oldconW;
+			winH = $(window).height(); conH = oldconH; 
+			
+			var maxsize = winH*1.50; var leftoffset = 0;
+			
+			leftoffset = ((winW - conW*1.5) / 2);
+			if (winW > maxsize) winW = maxsize;
+			winW *= window.devicePixelRatio;
+			
+			oldconW = winW * 0.68; oldconH = oldconW * 0.60;
+			if (leftoffset < 0) leftoffset = 0;
+			
+			var tr = document.querySelectorAll('.resizetext');
+			if (tr) for (var i=0; i<tr.length; i++){
+				tr[i].style.fontSize = 
+					(winW * 0.025 * $(tr[i]).data('fontsize')) + 'px';
+				tr[i].style.lineHeight = 
+					(winW * 0.025 * $(tr[i]).data('fontsize')) + 'px';
+			}
+		
+			for (var i=0; i<systems.length; i++) systems[i].resize();
+			
+			$('#mainchatpane').css({
+				width: (winW * 0.72) + 'px',
+				height: (winW * 0.56) + 'px',
+				right: (winW * 0.00) + 'px',
+				top: (winW * 0.00) + 'px'
+			});
+			
+		}
+		
+		window.onresize();
+		
+	}
+
+	var thisGame = setInterval(function(){
+		if ($('#gs_container_1').length){
+			clearInterval(thisGame);
+			beginGS();
+		}
+	}, 600);
+
+	document.addEventListener('DOMContentLoaded', function(){
+		clearInterval(thisGame);
+		beginGS();
+	});
+
+//**************  GAME AREAS  *******************//
+
+// Instantiates Game Areas   
+function createGameArea(name, opts) 
+{
+
+	var camera = gs.camera;
+	var effects = gs.effects;
+
+	function getpic(name){return gs.currentarea.getPicture(name);}
+	function getev(name){return gs.currentarea.getEvent(name);}
+	function getevent(name){return gs.currentarea.getEvent(name);}
+	function getmodel(name){return gs.currentarea.getModel(name);}
+	function econtrols(name){return gs.currentarea.getExtraControls(name);}
+	function gettbs(name){return gs.currentarea.getTextboxSequence(name);}
+	function playtbs(name){gs.currentarea.playTextboxSequence(name);}
+	function getps(name){return gs.currentarea.getParticleSystem(name);}
+	function getsound(name){return gs.currentarea.getSound(name);}
+	function getaudio(name){return gs.currentarea.getSound(name);}
+	
+	var blackout = gs.blackout;
+	var whiteout = gs.whiteout;
+	var redout = gs.redout;
+	var blueout = gs.blueout;
+	var greenout = gs.greenout;
+	var nopic = gs.nopic;
+
+	for (var i = 0; i < gs.areasinmemory.length; i++) {
+		if (gs.areasinmemory[i] !== null){
+			if (gs.areasinmemory[i].name === name){
+				console.log('found area to load from mem: ', gs.areasinmemory[i]);
+				return gs.areasinmemory[i];
+			}
+		}
+	}
+	switch (name){ 
+//*******************************Initial Area***********************************// 
+    case 'initial':
+	
+        var thisarea = new GameArea({
+			name: 'initial', graphscale: 8.1, system: gs});
+		
+		var cat = thisarea.addPicture({
+			filename: '../resources/images/sprites/cat.png',
+			position: vec3( 0, 0, -10 ), opacity: 1,
+			zupdating: true, animatorframes: [3,4,12,120],
+			scale: 3, blending: 'normal',
+			walkframes: {down: [1,2,3],
+						left: [4,5,6],
+						right: [7,8,9],
+						up: [10,11,12]},
+			antialiased: false, pictureoffset: vec3(0, 35, 0)});
+		
+		var text01 = new Textbox({
+			string: 'Hi. I\'m an event.',
+			type: 'timed',
+			timer: 4
+		});
+		var textseq = thisarea.addTextboxSequence({
+			name: 'event',
+			textboxes: [text01]});
+		var event = thisarea.addPicture({
+			filename: '../resources/images/sprites/aphaiamain1.png',
+			opacity: 1.0, scale: 2, animatorframes: [6,8,48,110],
+			passable: false, zupdating: true, antialiased: false,
+			eventwidth: 62, eventheight: 60, 
+			position: new Vec3( 90,20,30 ),
+			eventoffset: vec3(0, 45, 0),
+			zoffset: v3(0,35,0)});
+		event.click = function (){ 
+			if (!gs.mouse.textboxup) 
+			gs.currentarea.playTextboxSequence('event'); 
+		};
+		
+		/*var aphaia = thisarea.addPicture({filename: '../resources/images/sprites/aphaiamain1.png', scale: t,
+			position: new Vec3(0,120,45), animatorframes: [6,8,48,110], antialiased: false,
+			name: 'aphaia', collisioncolors: [0,70], zupdating: true, scale: 1.08});
+			aphaia.frame(12);*/
+		
+		var bg = thisarea.addPicture({
+			filename: '../resources/images/sprites/checkerboard.jpg',
+			position: vec3( 0, 0, -30 ), scale: 2,
+			opacity: 0.5, antialiased: false
+		});
+			
+			
+		thisarea.setBegin(function (){
+
+			blackout.fadeout();
+			
+			cat.addPhysics();
+			cat.physicsupdating = true;
+			cat.controls = rpgControls;
+			cat.controlsresponsive = true;
+			
+			cat.collisioncolors = [];
+			gs.pstepping = true;
+			
+			cat.eventdistance = 20;
+			
+			this.player = cat;
+			
+			event.addShadow({onload: function(){
+				event.shadow.mesh.scale.x = 0.08;
+				event.shadow.mesh.scale.y = 0.08;
+			}});
+			event.altitude = 45;
+			/*event.addShadow({scale: 0.1, width: 30, height: 30,
+				onload: function(){
+					event.shadow.material.opacity = 0.7;
+					event.shadow.zupdating = true;
+				}});
+			event.altitude = 24;*/
+
+		});
+		return thisarea; 
+    break; 
+//******************************** DEFAULT CASE ***************************************//
+//*************************************************************************************//      
+    default:
+		console.log('Incorrect game area name.');
+      return null;
+  }
+}
+
+</script>
+<body id="thebody" style="background: black;">
+
+	<div class="noselect" id="gs_container_1" style="width: 100%;
+		height: 100%; background: none; overflow: hidden; position: absolute;
+		left: 0%; top: 0%; display: block; z-index: 4000;"></div>
+
+</body>
+</html>

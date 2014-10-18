@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="./assets/styles.css">
+
+<script src="./assets/utils.js"></script>
+<script src="./assets/form.js"></script>
+<script src="./assets/history.js"></script>
+<script src="./assets/history.adapter.native.js"></script>
+
+<!-- all of that up there is just crap for the site! now the real fun begins. -->
+<script> var require = { baseUrl: "src" }; </script>
+<script data-main="read_bgs_dat" src="src/vendor/require.js"></script>
+
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="row">
+      <div class="col-xs-5">
+        <div id="loading-indicator" class="spinner">
+          <div class="cube1"></div>
+          <div class="cube2"></div>
+        </div>
+        <canvas id="ebbb-holder" class="hidden" width="256" height="256">
+          Canvas.
+        </canvas>
+      </div>
+      <div class="col-xs-7">
+        <div class="row">
+          <div class="col-sm-6">
+              <h6>Change Background Animation</h6>
+              <div class="row">
+                <div class="col-sm-6">
+                  <label for="layer1" class="control-label">Layer 1</label>
+                  <div>
+                    <select id="layer1" class="form-control">
+                      <!-- generated in forms.js -->
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <label for="layer2" class="control-label">Layer 2</label>
+                  <div>
+                    <select id="layer2" class="form-control">
+                      <!-- generated in forms.js -->
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label for="suggested" class="control-label">Suggested Layers</label>
+                <div>
+                  <select id="suggested" class="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <div class="btn-random-container">
+                  <button type="button" id="randomLayer" class="btn btn-default">Random Layers</button>
+                </div>
+              </div>
+          </div>
+          <div class="col-sm-6">
+              <h6>Change Presentation</h6>
+              <div>
+                <label for="aspectRatio" class="control-label">Aspect Ratio</label>
+                <div>
+                  <select id="aspectRatio" class="form-control">
+                    <option value="0">Fullscreen (8:7)</option>
+                    <option value="16">Wide Letterbox (4:3)</option>
+                    <option value="48">Medium Letterbox (2:1)</option>
+                    <option value="64">Narrow Letterbox (8:3)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label for="frameskip" class="control-label">Frameskip</label>
+                <div>
+                  <select id="frameskip" class="form-control">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+ 
+<script>
+	//setTimeout(function(){EBBG_engine.updating = true;}, 3000);
+	setTimeout(function(){
+		
+		//console.log(EBBG_engine.distorter1a);
+		//EBBG_engine.effect1.setEffect(2);
+		//console.log(EBBG_engine.layer2);
+		//EBBG_engine.effect1.setAmplitude(EBBG_engine.effect1.getAmplitude()*0.5);
+		//EBBG_engine.layer1 = new BackgroundLayer.BackgroundLayer(EBBG_engine.rom, 22);
+		EBBG_engine.setLayer1(28);
+		EBBG_engine.effect1.setAmplitude(EBBG_engine.effect1.getAmplitude()*0.5);
+		//EBBG_engine.distorter2.effect.setAmplitude(EBBG_engine.distorter2.effect.getAmplitude()*2.5);
+		EBBG_engine.alpha = 1.0;
+	}, 2000);
+</script>
+ 
+</body>
+</html>

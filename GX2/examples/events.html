@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlcontainer">
+
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Simple Example</title>
+	<meta charset="utf-8">
+	<!--<meta name="viewport" content="user-scalable=yes, minimum-scale=1.5, maximum-scale=1.5">-->
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0"> 
+	<style>
+		body 
+		{
+			font-family: Monospace;
+			font-weight: bold;
+			background-color: black; /*white;*/
+			margin: 0px;
+			overflow: hidden;
+		}
+		#container
+		{
+			overflow-y: hidden;
+		}
+	</style>
+	<style>
+		@font-face {
+			font-family: 'asenine';
+			src: url('er/fonts/asenine.ttf');
+		}
+		@font-face {
+			font-family: 'oldenglish';
+			src: url('er/fonts/oldenglish.ttf');
+		}
+	</style>
+	
+	<div id="_load_fonts" style="display: none;">
+		<div style="font-family: oldenglish;">hack</div><div style="font-family: asinine;">hack</div>
+	</div>
+	
+	<script type='text/javascript' src="2Dgs/utils/jquery.min.js"></script>
+	<script type='text/javascript' src="2Dgs/utils/Resize.js"></script>
+	
+</head>
+
+<body id="thebody">
+
+	<div id="message" class="absolutecentered" style="display: none;"></div> 
+
+	<script type='text/javascript' src="2Dgs/three/Three59.js"></script>
+	<script type='text/javascript' src="2Dgs/shaders/EffectComposer.js"></script>
+	<script type='text/javascript' src="2Dgs/shaders/ShaderExtras.js"></script>
+	<script type='text/javascript' src="2Dgs/shaders/ShaderPasses.js"></script>
+	<script type='text/javascript' src="2Dgs/utils/KeyboardState.js"></script>
+	<script type='text/javascript' src="2Dgs/utils/FullScreen.js"></script>
+	<script type='text/javascript' src="2Dgs/utils/FixedQueue.js"></script>
+	<script type='text/javascript' src='2Dgs/utils/Tween.js'></script>
+	<script type='text/javascript' src="2Dgs/physics/Box2dWeb.min.js"></script>
+	<script type="text/javascript" src="2Dgs/physics/p2.js"></script>
+	<script type="text/javascript" src="2Dgs/physics/p2.extras.js"></script>
+	<script type="text/javascript" src="2Dgs/utils/simplexnoise.js"></script>
+	<script type='text/javascript' src="2Dgs/2DgsUtilities.js"></script>
+	<script type='text/javascript' src="2Dgs/2Dgs.js"></script>
+	<script type='text/javascript' src="2Dgs/2DgsControls.js"></script>
+	<script type='text/javascript' src="2Dgs/2DgsSetup.js"></script>
+	<script type='text/javascript' src="2Dgs/2DgsSetupHud.js"></script>
+	<script type='text/javascript' src="2Dgs/2DgsSetupPhysics.js"></script>
+	<script type='text/javascript' src="2Dgs/utils/Detector.js"></script>
+	<script type="text/javascript" src="2Dgs/shaders/ShaderParticleEmitter.js"></script>
+    <script type="text/javascript" src="2Dgs/shaders/ShaderParticleGroup.js"></script>
+	<script type="text/javascript" src="2Dgs/utils/Resize.js"></script>
+	<script type="text/javascript" src="2Dgs/utils/AES.js"></script>
+	<script type="text/javascript" src="2Dgs/utils/Storage.js"></script>
+	<script type="text/javascript" src="2Dgs/utils/gamepad.js"></script>
+  
+<script> 
+
+/* Simple 2Dgs Example Script   
+ * @author brokedRobot / http://www.prismshards.com/
+ */ 
+ 
+    var firstarea = 'initial';
+	var physicstype = 'p2';
+	var gait = 1;
+	var __debug_1_active = 1;
+	var debuginit = function(){
+	
+	}
+	var debugupdate = function(){
+	
+	}
+
+  // Detect whether WebGL capable, Canvas capable, etc.
+    if ( Detector.webgl ) webGLCapable = true;
+	else {
+		alert('You need a WebGL compatible browser to continue!\
+				Try the help section for some advice and helpful links!');
+		window.location = 'http://www.prismshards.com/help';
+	}
+  
+  // Begin processing
+    initScene();
+    animate();
+
+//**************  GAME AREAS  *******************//
+
+// Instantiates Game Areas   
+function createGameArea(name, opts) 
+{
+	for (var i = 0; i < areasinmemory.length; i++) {
+		if (areasinmemory[i] !== null){
+			if (areasinmemory[i].name === name){
+				return areasinmemory[i];
+			}
+		}
+	}
+	switch (name){ 
+//*******************************Initial Area***********************************// 
+    case 'initial':
+	
+        var thisarea = new GameArea({name: 'initial'});
+
+		var t = 1.0;
+			
+		var splash1 = thisarea.addPicture({filename: 'er/images/system/splash4b.png', width: 310*0.7*t,
+			height: 310*0.7*t, position: new Vec3( 2000*t, 0*t, -570 ), opacity: 0.0, blending: 'add', antialiased: true});
+		var splash2 = thisarea.addPicture({filename: 'er/images/system/splash4a.png', width: 640*0.7*t,
+			height: 960*0.7*t, position: new Vec3( 0*t, 150*t, -560 ), opacity: 0.0, blending: 'add', antialiased: true});
+		var brobot = thisarea.addPicture({filename: 'er/images/system/brobot.png', width: 600*0.7*t,
+			height: 600*0.7*t, position: new Vec3( 50*t, 0*t, -550 ), opacity: 0.0, blending: 'normal', antialiased: true});
+		var gear1 = thisarea.addPicture({filename: 'er/images/system/gear.png', width: 128*0.7*t,
+			height: 128*0.7*t, position: new Vec3( -500*t, 50*t, -560 ), opacity: 1.0, blending: 'normal', antialiased: true});
+		var gear2 = thisarea.addPicture({filename: 'er/images/system/gear.png', width: 96*0.7*t,
+			height: 96*0.7*t, position: new Vec3( 500*t, 10*t, -560 ), opacity: 1.0, blending: 'normal', antialiased: true});
+		var splashbg = thisarea.addPicture({filename: 'er/images/system/blackpixel.gif', width: 10000, height: 10000,
+			position: new Vec3( 0, 0, -589 ), opacity: 1, antialiased: true, name: 'blobsbg',
+			material: game.effects.createShaderMaterial(THREE.BlobsShader)}); 
+		var splashbg2 = thisarea.addPicture({filename: 'er/images/system/blackpixel.gif', width: 10000, height: 10000,
+			position: new Vec3( 0, 0, -590 ), opacity: 1, antialiased: true, name: 'electricbg',
+			material: game.effects.createShaderMaterial(THREE.ElectricShader)}); 
+		var arrow = thisarea.addPicture({filename: 'er/images/system/arrow04.png', blending: 'add', width: 27*t,
+			height: 27*t, position: new Vec3( 100*t, -900, -597 )});
+		arrow.state = 'up';
+		arrow.changing = false;
+		var titlebg = thisarea.addPicture({filename: 'er/images/sprites/title01.png', width: 655*t, height: 470*t,
+			  position: new Vec3( 0*t, 0*t, -600 )});
+		var starshine = thisarea.addPicture({filename: 'er/images/sprites/starshine02.png', blending: 'add', width: 290*t,
+			  height: 265*t, position: new Vec3( -112*t, 160*t, -599 ), opacity: 0.7, update: 
+                    function (delta){ this.rotation.z += (Math.PI / 180) * (delta * 50);}, updating: true});
+		var starshine2 = thisarea.addPicture({filename: 'er/images/sprites/starshine02.png', blending: 'add', width: 870*t,
+			  height: 795*t, position: new Vec3( -112*t, 160*t, -598 ), opacity: 0.4, update: function (delta){this.rotation.z -=
+                    (Math.PI / 360) * (delta * 50);}, updating: true});      
+		var menu1 = thisarea.addPicture({filename: 'er/images/sprites/titlemenu1.png', blending: 'add', width: 204*t,
+			  height: 63*t, position: new Vec3( 204*t, -900, -596 ), opacity: 0.8});
+		var menu2 = thisarea.addPicture({filename: 'er/images/sprites/titlemenu2.png', blending: 'add', width: 204*t,
+			  height: 61*t, position: new Vec3( 204*t, -1330, -596 ), opacity: 0.4});
+
+		var titlebgm = thisarea.addSound({filename: 'er/music/titlefixed', name: 'title', 
+                                                          volume: 0.2, repeat: true});
+		var menumove = thisarea.addSound({filename: 'er/sounds/menumove', name: 'menu', 
+                                                          volume: 0.2, repeat: false});				
+			
+		thisarea.addPicture({filename: 'er/images/system/blackpixel.gif', width: 100680,
+                  height: 100520, position: new Vec3( 0, 0, -3000.1 ), opacity: 1.0, passable: true});
+		thisarea.addPicture({filename: 'er/images/system/whitepixel.gif', width: 100680,
+                  height: 100520, position: new Vec3( 0, 0, -3000 ), opacity: 0.0, passable: true});
+
+		thisarea.addPicture({filename: 'er/images/sprites/aphaiasprite.png',
+			position: new Vec3( 500, 200, -710 ), opacity: 0, sprite: false,
+			animatorframes: [12,8,96,250], scale: 10, blending: 'normal',
+            antialiased: false, name: 'aphaia', centeroffset: vec3(0, -160, 0),
+			zupdating: true, eventwidth: 200, eventheight: 200});
+
+		var pic = thisarea.addPicture({filename: 'er/images/system/splashlogo.png',
+			position: new Vec3( 200,200,-560 ), antialiased: true, opacity: 0,
+			name: 'logo', animatorframes: [2,2,4,350],
+			eventwidth: 200, eventheight: 160, zupdating: true, passable: false});
+			
+		var nps = thisarea.addParticleSystem({filename: 'er/images/particle/smokeparticle.png',
+			name: 'ps1', perspective: 0, blending: 'add', maxage: 0.8,
+			emitter: new ShaderParticleEmitter({
+				position: new THREE.Vector3(0, 0, -400), positionSpread: new THREE.Vector3(5000, 5000, 1),
+				acceleration: new THREE.Vector3(0, -20, 0), accelerationSpread: new THREE.Vector3( 3, 3, 3 ),
+				velocity: new THREE.Vector3(0, -175, 0), velocitySpread: new THREE.Vector3(3, 57.5, 3),
+				colorStart: new THREE.Color('blue'), colorEnd: new THREE.Color('green'),
+				size: 5, sizeSpread: 6, sizeEnd: 2, particlesPerSecond: 500
+		})});
+		
+		var nps2 = thisarea.addParticleSystem({filename: 'er/images/particle/smokeparticle.png',
+			name: 'ps2',
+			perspective: 0,
+			blending: 'add',
+			maxage: 6.8,
+			emitter: new ShaderParticleEmitter({
+				type: 'sphere',
+				radius: 20,
+				radiusScale: new THREE.Vector3(1, 1, 0.001),
+			
+				position: new THREE.Vector3(-112*t, 160*t, -400),
+				positionSpread: new THREE.Vector3(0, 0, 1),
+
+				acceleration: new THREE.Vector3(0, 0, 0),
+				accelerationSpread: new THREE.Vector3( 1300, 1300, 1300 ),
+
+				velocity: new THREE.Vector3(0, 0, 0),
+				velocitySpread: new THREE.Vector3(3000, 3000, 3000),
+
+				colorStart: new THREE.Color('blue'),
+				colorEnd: new THREE.Color('white'),
+				size: 5,
+				sizeSpread: 16,
+				sizeEnd: 2,
+
+				particlesPerSecond: 100
+		})});
+
+		thisarea.setBegin(function (){
+		
+			splashbg.material.shaderSpeed = 0.2;
+			splashbg2.material.shaderSpeed = 0.15;
+
+			blackout.fadeout({delay: 1});
+
+			splash1.fadein({delay: 2});
+			splash2.fadein({delay: 2});
+			splash1.fadeout({delay: 6});
+			splash2.fadeout({delay: 6});
+			blackout.fadein({delay: 8.5, onComplete: function(){getpic('blobsbg').material.visible = false;}}).fadeout();
+			whiteout.fadein({delay: 13.5, time: 0.25}).fadeout({time: 0.25});
+			
+			splash1.rotateto({time: 6, delay: 2, ease: Easing.Sine.Out, to:{z: -Math.PI*2*16}})
+				.moveto({time: 4, delay: 2, interpolation: 'thru', ease: Easing.Sine.In,
+					to: {x: [0, -1500, 0, 1300, 0, -900, 0, 600, 0, -300, 0, 150, 0, -50, 0, 25, 0], y: [-1500, 0, 1300, 0, -900, 0, 600, 0, -300, 0, 150, 0 , -50, 0, 25, 0, -12]}});
+
+			gear1.moveto({time: 0.55, delay: 13.15, to: {x: -1420}}).rotateto({time: 8, delay: 13.15, to: {z: game.pi*10}});
+			gear2.moveto({time: 0.55, delay: 13.15, to: {x: -1000}}).rotateto({time: 8, delay: 13.15, to: {z: -game.pi*10}});
+			brobot.fadein({delay: 14});
+			blackout.fadein({delay: 6, time: 1.5, onComplete: function(){
+				runTimeout(function(){music = titlebgm; music.play();}, 500);
+				gear1.material.visible = gear2.material.visible = brobot.material.visible = splashbg2.material.visible = false;
+				game.mouse.addClickable(menu1);
+				menu1.click = function(){
+					if (arrow.changing) return;
+					if (arrow.state === 'down'){
+						arrow.state = 'up';
+						arrow.changing = true;
+						arrow.moveto({time: 0.4, to: {y: -900}, onComplete: function(){
+							arrow.changing = false;
+							menu1.material.opacity = 0.8;
+							menu2.material.opacity = 0.4;
+						}});
+					}
+					else if (arrow.state === 'up') {
+						console.log('ent');
+						music.fadeout(1.8);
+						blackout.fadein({time: 2, onComplete: function(){
+							currentarea.loadNextArea({name: 'opening'});
+						}});
+					}
+				};
+				game.mouse.addClickable(menu2);
+				menu2.click = function(){
+					if (arrow.changing) return;
+					if (arrow.state === 'up'){
+						arrow.state = 'down';
+						arrow.changing = true;
+						arrow.moveto({time: 0.4, to: {y: -1300}, onComplete: function(){
+							arrow.changing = false;
+							menu2.material.opacity = 0.8;
+							menu1.material.opacity = 0.4;
+						}});
+					}
+					else if (arrow.state === 'down') console.log('ent');
+				};
+				menu1.eventwidth = 500; menu1.eventheight = 500;
+				arrow.controls = function(){
+					if (arrow.changing) return;
+					if (keyboard.up("w") || keyboard.up("up")){
+						if (arrow.state === 'down'){
+							arrow.state = 'up';
+							arrow.changing = true;
+							arrow.moveto({time: 0.4, to: {y: -900}, onComplete: function(){
+								arrow.changing = false;
+								menu1.material.opacity = 0.8;
+								menu2.material.opacity = 0.4;
+							}});
+						}
+					}
+					if (keyboard.up("s") || keyboard.up("down")){
+						if (arrow.state === 'up'){
+							arrow.state = 'down';
+							arrow.changing = true;
+							arrow.moveto({time: 0.4, to: {y: -1300}, onComplete: function(){
+								arrow.changing = false;
+								menu2.material.opacity = 0.8;
+								menu1.material.opacity = 0.4;
+							}});
+						}
+					}
+					if (keyboard.up("space") || keyboard.up("enter")){
+						console.log('ent');
+						music.fadeout(1.8);
+						blackout.fadein({time: 2, onComplete: function(){
+							currentarea.loadNextArea({name: 'opening'});
+						}});
+					}
+				};
+				arrow.controlsresponsive = true;
+				nps2.updating = true;
+			}}).fadeout({delay: 1.0, time: 1.75});
+			
+			nps.updating = true;
+			nps.addTo(currentarea.graph);
+			nps2.addTo(currentarea.graph);
+
+		});
+		return thisarea; 
+    break; 
+//******************************** DEFAULT CASE ***************************************//
+//*************************************************************************************//      
+    default:
+		console.log('Incorrect game area name.');
+      return null;
+  }
+}
+
+</script>
+
+</body>
+</html>

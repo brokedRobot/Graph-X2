@@ -1,0 +1,13 @@
+4/13/14
+
+I'm getting the library together for basically it's first true initial release.  There are still several caveats/gotchas that I will list here.  Also, the audio analyzer doesn't work yet, I haven't finished integrating it.
+
+1. Particle systems show up out of order in the z-ordering if you use negative values for them and other things.  If you use positive z values for everything they work fine.  I'm pretty sure this is happening in Squarefeet's particle shaders somewhere, but haven't had time to try and fix it.
+
+2. Fonts; because of the weird way they seem to work with canvas, you have to call a function when you're setting up a game area, which basically just tries to write to the canvas so that it will go ahead and load the font.  The function is gameArea.addFont(fontname) I think.
+
+3. Movement of the camera.  Because the resolution/aspect changes when you resize the browser, some resolutions can cause ugly artifacts when the camera moves if the maps/sprites aren't set to antialiased.  This can be mitigated by using power of two sized images, but sometimes with animated sprites it's annoying to have to use a square image, so basically the solution I've found that works best is to use antialiasing on the maps and leave nearest neighbor on the sprites.  There's also a vector blur shader that you can set up on the camera that might help. 
+
+4. Hud; the hud is basically a place where you can put sprites that will move with the camera, like a border, on-screen controls (which I've already added), or whatever, the hud and the scene are drawn seperately and then merged together at render time.
+
+hmm...
