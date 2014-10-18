@@ -1948,8 +1948,8 @@
 			if (this.autocenter){
 				if (this.container){
 					this.container.style.position = 'absolute';
-					this.container.style.width = ((window.innerWidth - this.container.offsetWidth)/2)+'px';
-					this.container.style.height = ((window.innerHeight - this.container.offsetHeight)/2)+'px';
+					this.container.style.left = ((window.innerWidth - this.container.offsetWidth)/2)+'px';
+					this.container.style.top = ((window.innerHeight - this.container.offsetHeight)/2)+'px';
 				}
 			}
 			
