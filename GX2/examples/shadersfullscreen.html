@@ -82,17 +82,13 @@
 		windowready = true;
 		console.log('docready');
 		
-		gs = new GameSystem({
+		gs = new GX2ystem({
 			container: document.getElementById('gs_container_1'),
-			createGameArea: createGameArea,
+			createArea: createArea,
 			firstarea: 'initial',
-			//autoClear: true,
-			//autoresize: true,
 			autocenter: true,
-			//screenmode: 'full',
 			tweenupdating: true,
 			sideborder: true,
-			//particlescale: 120,
 			pauseonblur: true,
 			attachpath: '../'
 		});
@@ -148,10 +144,10 @@
 		beginGS();
 	});
 
-//**************  GAME AREAS  *******************//
+//**************  AREAS  *******************//
 
-// Instantiates Game Areas   
-function createGameArea(name, opts) 
+// Instantiates Areas   
+function createArea(name, opts) 
 {
 
 	var camera = gs.camera;
@@ -187,7 +183,7 @@ function createGameArea(name, opts)
 //*******************************Initial Area***********************************// 
     case 'initial':
 	
-        var thisarea = new GameArea({name: 'initial', graphscale: 8.1, system: gs});
+        var thisarea = new GX2Area({name: 'initial', graphscale: 8.1, system: gs});
 		
 		var cat = thisarea.addPicture({
 			filename: '../resources/images/sprites/cat.png',
