@@ -99,14 +99,6 @@
 			
 			oldconW = winW * 0.68; oldconH = oldconW * 0.60;
 			if (leftoffset < 0) leftoffset = 0;
-			
-			var tr = document.querySelectorAll('.resize');
-			if (tr) for (var i=0; i<tr.length; i++){
-				tr[i].style.fontSize = 
-					(winW * 0.025 * $(tr[i]).data('size')) + 'px';
-				tr[i].style.lineHeight = 
-					(winW * 0.025 * $(tr[i]).data('size')) + 'px';
-			}
 		
 			for (var i=0; i<systems.length; i++) systems[i].resize();
 			
