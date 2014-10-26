@@ -141,7 +141,7 @@
 					var thisarea = new GX2Area({name: 'initial', graphscale: 1, system: gs});
 
 					var cat = thisarea.addPicture({filename: 'images/graphx2.png',
-						position: vec3( 0, 0, 50 ), opacity: 1,scale: 3, blending: 'normal',
+						position: vec3( 0, 0, 50 ), opacity: 1,scale: 12, blending: 'normal',
 						antialiased: false, name: 'cat', centeroffset: vec3(0, 0, 0)});
 
 					thisarea.setBegin(function (){
@@ -167,6 +167,10 @@
 			<header class="inner">
 			  <a id="forkme_banner" href="https://github.com/brokedRobot/Graph-X2" style="background: url('images/blacktocat.png') orange no-repeat 95% 50% !important;">View on GitHub</a>
 
+			  <div class="noselect" id="gs_container_1" style="width: 400px;
+					height: 140px; background: none; overflow: hidden; position: absolute;
+					left: 0%; top: 0%; display: block; z-index: 4000;"></div>
+			  
 			  <h1 id="project_title" style="visibility: hidden; cursor: default;">Graph-X2</h1>
 			  <h2 id="project_tagline">Easy to use Graphics System built using Three.js</h2>
 
@@ -201,10 +205,6 @@
 			</footer>
 		</div>
 		
-		<div class="noselect" id="gs_container_1" style="width: 400px;
-			height: 140px; background: none; overflow: hidden; position: absolute;
-			left: 0%; top: 0%; display: block; z-index: 4000;"></div>
-
 	</body>
 	
 </html>
