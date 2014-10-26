@@ -1,105 +1,126 @@
+<style>
+	::-webkit-scrollbar-track{
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+		background-color: #201f1f;
+		border-top-right-radius: 100px;
+		border-bottom-right-radius: 100px;
+	}
 
-<div style="overflow-y: auto; position: absolute;
-	left: 0%; top: 0%; width: 180px; height: 100%;
+	::-webkit-scrollbar{
+		width: 5px;
+		background-color: #201f1f;
+		border-top-right-radius: 100px;
+		border-bottom-right-radius: 100px;
+	}
+
+	::-webkit-scrollbar-thumb{
+		background-color: #aaa;
+		border: 1px solid #333;
+		border-radius: 5px;
+	}
+</style>
+
+<div style="overflow-y: auto; position: absolute; color: white;
+	left: 0%; top: 0%; width: 180px; height: 100%; background: black;
 	border-right: 1px solid black; text-align: center;">
 	
-	<h2>Examples</h2>
+	<h2><u>Examples</u></h2>
 	
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'animation.html';">animation</a><br>
+		= 'animation.html';" style="color: #5a2;">animation</a><br>
 			
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'audiobuffer.html';">audio buffer</a><br>
+		= 'audiobuffer.html';" style="color: #5a2;">audio buffer</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'audiotag.html';">audio tag</a><br>
+		= 'audiotag.html';" style="color: #5a2;">audio tag</a><br>
 			
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'audiovisualizer.html';">audio visualizer</a><br>
+		= 'audiovisualizer.html';" style="color: #5a2;">audio visualizer</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'camerablur.html';">camera blur</a><br>	
+		= 'camerablur.html';" style="color: #5a2;">camera blur</a><br>	
 	
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'changearea.html';">change area</a><br>
+		= 'changearea.html';" style="color: #5a2;">change area</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'collisionmap.html';">collision map</a><br>
+		= 'collisionmap.html';" style="color: #5a2;">collision map</a><br>
 
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'collisions.html';">collisions</a><br>
+		= 'collisions.html';" style="color: #5a2;">collisions</a><br>
 
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'contactbeginend.html';">contact begin/end</a><br>
+		= 'contactbeginend.html';" style="color: #5a2;">contact begin/end</a><br>
 
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'controls.html';">controls</a><br>
+		= 'controls.html';" style="color: #5a2;">controls</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'controlsonscreen.html';">controls on screen</a><br>
+		= 'controlsonscreen.html';" style="color: #5a2;">controls on screen</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'directionfinding.html';">direction finding</a><br>
+		= 'directionfinding.html';" style="color: #5a2;">direction finding</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'elasticphysics.html';">elastic physics</a><br>
+		= 'elasticphysics.html';" style="color: #5a2;">elastic physics</a><br>
 		
 	<!--<a href="#" onclick="document.getElementById('iframe').src
-		= 'events.html';">events</a><br>-->
+		= 'events.html';" style="color: #5a2;">events</a><br>-->
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'hueshift.html';">hueshift</a><br>
+		= 'hueshift.html';" style="color: #5a2;">hueshift</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'models.html';">models(meshes)</a><br>
+		= 'models.html';" style="color: #5a2;">models(meshes)</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'particles.html';">particles</a><br>
+		= 'particles.html';" style="color: #5a2;">particles</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'pathfinding.html';">pathfinding</a><br>
+		= 'pathfinding.html';" style="color: #5a2;">pathfinding</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'pausing.html';">pausing</a><br>
+		= 'pausing.html';" style="color: #5a2;">pausing</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'plasmabg.html';">plasma</a><br>
+		= 'plasmabg.html';" style="color: #5a2;">plasma</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'plasmabgaudio.html';">plasma audio synch</a><br>
+		= 'plasmabgaudio.html';" style="color: #5a2;">plasma audio synch</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'physics.html';">physics</a><br>
+		= 'physics.html';" style="color: #5a2;">physics</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'shadersfullscreen.html';">shaders full screen</a><br>
+		= 'shadersfullscreen.html';" style="color: #5a2;">shaders full screen</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'shadersmaterials.html';">shaders materials</a><br>
+		= 'shadersmaterials.html';" style="color: #5a2;">shaders materials</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'shadowcopies.html';">shadow copies</a><br>
+		= 'shadowcopies.html';" style="color: #5a2;">shadow copies</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'shadows.html';">shadows</a><br>
+		= 'shadows.html';" style="color: #5a2;">shadows</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'skybox.html';">skybox</a><br>
+		= 'skybox.html';" style="color: #5a2;">skybox</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'textboxenter.html';">textbox enter</a><br>
+		= 'textboxenter.html';" style="color: #5a2;">textbox enter</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'textboxtimed.html';">textbox timed</a><br>
+		= 'textboxtimed.html';" style="color: #5a2;">textbox timed</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'tweening.html';">tweening</a><br>
+		= 'tweening.html';" style="color: #5a2;">tweening</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'updating.html';">updating</a><br>
+		= 'updating.html';" style="color: #5a2;">updating</a><br>
 		
 	<a href="#" onclick="document.getElementById('iframe').src
-		= 'zupdating.html';">zupdating</a><br>
+		= 'zupdating.html';" style="color: #5a2;">zupdating</a><br>
 		
 	<br>&nbsp;
 		
