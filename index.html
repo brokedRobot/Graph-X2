@@ -65,7 +65,7 @@
 					firstarea: 'initial',
 					autocenter: true,
 					tweenupdating: true,
-					sideborder: true,
+					sideborder: false,
 					pauseonblur: true,
 					attachpath: 'GX2'
 				});
@@ -117,6 +117,7 @@
 			function createArea(name, opts){
 
 				var camera = gs.camera;
+				var fx = gs.effects;
 				
 				var blackout = gs.blackout;
 				var whiteout = gs.whiteout;
@@ -140,13 +141,36 @@
 				
 					var thisarea = new GX2Area({name: 'initial', graphscale: 1, system: gs});
 
-					var cat = thisarea.addPicture({filename: 'images/graphx2.png',
-						position: vec3( 0, 0, 50 ), opacity: 1,scale: 12, blending: 'normal',
-						antialiased: false, name: 'cat', centeroffset: vec3(0, 0, 0)});
+					var gx2 = thisarea.addPicture({filename: 'images/graphx2.png',
+						position: vec3( 0, 0, 50 ), opacity: 1, scale: 12, blending: 'normal',
+						antialiased: false, name: 'gx2', centeroffset: vec3(0, 0, 0)});
 
 					thisarea.setBegin(function (){
 					
 						blackout.fadeout();
+						
+						fx.staticPass.uniforms.size.value = 1;
+			
+						fx.resetComposer();
+						
+						fx.composer.addPass( fx.renderPass );
+				
+						fx.composer.addPass( fx.filmPass );
+						fx.composer.addPass( fx.badtvPass );
+						fx.composer.addPass( fx.rgbPass );
+						fx.composer.addPass( fx.staticPass );
+						fx.composer.addPass( fx.filmPass );		
+						
+						fx.composer.addPass( fx.copyPass );
+						
+						jiggle(fx, fx.badtvPass.uniforms.distortion, 4.5, 15, 15);
+						jiggle(fx, fx.badtvPass.uniforms.distortion2, 4, 15, 15);
+						//jiggle(fx, fx.badtvPass.uniforms.speed, 0.01, 15, 15);
+						//jiggle(fx, fx.badtvPass.uniforms.rollSpeed, 0.01, 15, 15);
+						jiggle(fx, fx.staticPass.uniforms.amount, 0.5, 18, 15);
+						jiggle(fx, fx.rgbPass.uniforms.angle, 0.3, 18, 15);
+						jiggle(fx, fx.rgbPass.uniforms.amount, 0.1, 18, 15);
+						jiggle(fx, fx.filmPass.uniforms.nIntensity, 3, 18, 15);
 
 					});
 					
@@ -155,9 +179,36 @@
 				break; 
 			//*******************************Default Case**********************************//
 				default:
-					console.log('Incorrect game area name.');
+					console.log('Incorrect area name.');
 					return false;
 			  }
+			}
+			
+			function jiggle(fx, obj, vi, vii, viii){
+		
+				var xi = Math.random()*vi;
+				var xii = Math.random()*vii;
+				if (viii) var xiii = Math.random()*viii;
+				
+				if (gs.framecounter % 5 == 0 || xi == 0){
+					xi = 0.001;
+				}
+				
+				if (viii)
+					setTimeout(function(){
+						tween({object: obj, 
+							to: {value: xi}, time: xii, 
+							onComplete: function(){
+								jiggle(fx, obj, vi, vii, viii);
+							}}).start();
+					}, xiii);
+				else
+					tween({object: obj, 
+						to: {value: xi}, time: xii, 
+						onComplete: function(){
+							jiggle(fx, obj, vi, vii);
+						}}).start();
+				
 			}
 
 		</script>
@@ -165,14 +216,15 @@
 		<!-- HEADER -->
 		<div id="header_wrap" class="outer" style="background: black !important;">
 			<header class="inner">
-			  <a id="forkme_banner" href="https://github.com/brokedRobot/Graph-X2" style="background: url('images/blacktocat.png') orange no-repeat 95% 50% !important;">View on GitHub</a>
+				<a id="forkme_banner" href="https://github.com/brokedRobot/Graph-X2" style="background: url('images/blacktocat.png') orange no-repeat 95% 50% !important;">View on GitHub</a>
 
-			  <div class="noselect" id="gs_container_1" style="width: 400px;
+				<div class="noselect" id="gs_container_1" style="width: 400px;
 					height: 140px; background: none; overflow: hidden; position: absolute;
-					left: 0%; top: 0%; display: block; z-index: 4000;"></div>
+					left: -50px; top: 0%; display: block; z-index: 1;"></div>
 			  
-			  <h1 id="project_title" style="visibility: hidden; cursor: default;">Graph-X2</h1>
-			  <h2 id="project_tagline">Easy to use Graphics System built using Three.js</h2>
+				<h1 id="project_title" style="visibility: hidden; cursor: default;">Graph-X2</h1>
+				<!--<br>-->
+				<h2 id="project_tagline" style="position: relative; z-index: 50;">Easy to use Graphics System built using Three.js</h2>
 
 				<section id="downloads">
 				  <a class="zip_download_link" href="https://github.com/brokedRobot/Graph-X2/zipball/master">Download this project as a .zip file</a>
