@@ -95,8 +95,6 @@ function getDirectionFromVector(direction){
 
 function rpgControls(playerNum){
 
-	if (document.activeElement == $('.messageinput')[0]) return;
-
 	if (undef(playerNum)) var playerNum = 0;
 	else playerNum--;
 
