@@ -140,21 +140,13 @@
 				
 					var thisarea = new GX2Area({name: 'initial', graphscale: 1, system: gs});
 
-					var cat = thisarea.addPicture({filename: 'GX2/resources/images/sprites/cat.png',
-						position: vec3( 0, 0, 50 ), opacity: 1,
-						walkframes: {down: [1,2,3],
-									left: [4,5,6],
-									right: [7,8,9],
-									up: [10,11,12]},
-						animatorframes: [3,4,12,120], scale: 30, blending: 'normal',
+					var cat = thisarea.addPicture({filename: 'images/graphx2.png',
+						position: vec3( 0, 0, 50 ), opacity: 1,scale: 30, blending: 'normal',
 						antialiased: false, name: 'cat', centeroffset: vec3(0, 0, 0)});
 
 					thisarea.setBegin(function (){
 					
 						blackout.fadeout();
-
-						cat.setRow(1);
-						cat.animating = true;
 
 					});
 					
@@ -209,8 +201,8 @@
 			</footer>
 		</div>
 		
-		<div class="noselect" id="gs_container_1" style="width: 100%;
-			height: 100%; background: none; overflow: hidden; position: absolute;
+		<div class="noselect" id="gs_container_1" style="width: 400px;
+			height: 300px; background: none; overflow: hidden; position: absolute;
 			left: 0%; top: 0%; display: block; z-index: 4000;"></div>
 
 	</body>
