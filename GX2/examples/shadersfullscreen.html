@@ -24,13 +24,6 @@
 		}
 	</style>
 	
-	<script src="../../../js/jquery.js"></script>
-	<script src="../../../js/utils.js"></script>
-	<script src="../../../js/storage.js"></script>
-	<script src="../../../js/tween.js"></script>
-	<script src="../../../js/upload.js"></script>
-	<script src="../../../js/peer.js"></script>
-	
 	<script src="../three/Three59.js"></script>
 	<script src="../shaders/EffectComposer.js"></script>
 	<script src="../shaders/ShaderExtras.js"></script>
@@ -50,9 +43,7 @@
 	<script src="../GX2.js"></script>
 	<script src="../GX2Controls.js"></script>
 	<script src="../GX2System.js"></script>
-	<script src="../GX2SetupPhysics.js"></script>
 	<script src="../GX2Visualizers.js"></script>
-	<script src="../GX2GameState.js"></script>
 	
 </head>
 
@@ -82,7 +73,7 @@
 		windowready = true;
 		console.log('docready');
 		
-		gs = new GX2ystem({
+		gs = new GX2System({
 			container: document.getElementById('gs_container_1'),
 			createArea: createArea,
 			firstarea: 'initial',
