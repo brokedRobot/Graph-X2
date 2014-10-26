@@ -150,6 +150,7 @@
 						blackout.fadeout();
 						
 						fx.staticPass.uniforms.size.value = 1;
+						fx.badtvPass.uniforms.rollSpeed = 0.000001;
 			
 						fx.resetComposer();
 						
@@ -158,13 +159,13 @@
 						fx.composer.addPass( fx.filmPass );
 						fx.composer.addPass( fx.badtvPass );
 						fx.composer.addPass( fx.rgbPass );
-						fx.composer.addPass( fx.staticPass );
-						fx.composer.addPass( fx.filmPass );		
+						//fx.composer.addPass( fx.staticPass );
+						//fx.composer.addPass( fx.filmPass );		
 						
 						fx.composer.addPass( fx.copyPass );
 						
 						jiggle(fx, fx.badtvPass.uniforms.distortion, 4.5, 15, 15);
-						jiggle(fx, fx.badtvPass.uniforms.distortion2, 4, 15, 15);
+						//jiggle(fx, fx.badtvPass.uniforms.distortion2, 4, 15, 15);
 						//jiggle(fx, fx.badtvPass.uniforms.speed, 0.01, 15, 15);
 						//jiggle(fx, fx.badtvPass.uniforms.rollSpeed, 0.01, 15, 15);
 						jiggle(fx, fx.staticPass.uniforms.amount, 0.5, 18, 15);
