@@ -1946,18 +1946,18 @@
 			}
 			
 			if (this.autocenter){
-				if (this.container){
-					this.container.style.position = 'absolute';
-					this.container.style.left = ((window.innerWidth - this.container.offsetWidth)/2)+'px';
-					this.container.style.top = ((window.innerHeight - this.container.offsetHeight)/2)+'px';
-				}
+				$(this.container).css({
+					position:'absolute',
+					left: ($(window).width() - $(this.container).outerWidth())/2,
+					top: ($(window).height() - $(this.container).outerHeight())/2,
+				});
 			}
 			
-			if (this.container.children[0]){
-				this.container.style.position = 'absolute';
-				this.container.style.left = ((this.container.offsetWidth - this.container.children[0].offsetWidth)/2)+'px';
-				this.container.style.top = ((this.container.offsetHeight - this.container.children[0].offsetHeight)/2)+'px';
-			}
+			$(this.container.children[0]).css({
+				position:'absolute',
+				left: ($(this.container).outerWidth() - $(this.container.children[0]).outerWidth())/2,
+				top: ($(this.container).outerHeight() - $(this.container.children[0]).outerHeight())/2,
+			});
 			
 		}	
 	}
