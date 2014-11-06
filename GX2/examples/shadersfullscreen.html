@@ -8,18 +8,23 @@
 	<meta charset="utf-8">
 	<style>
 		body {
-			background-color: black;
+			font-family: Monospace;
+			font-weight: bold;
+			background-color: black; /*white;*/
 			margin: 0px;
 			overflow: hidden;
+		}
+		@font-face {
+			font-family: 'asenine';
+			src: url('er/fonts/asenine.ttf');
+		}
+		@font-face {
+			font-family: 'oldenglish';
+			src: url('er/fonts/oldenglish.ttf');
 		}
 	</style>
 	
 	<script src="../utils/jquery.min.js"></script>
-	<!--<script src="../../../js/utils.js"></script>
-	<script src="../../../js/storage.js"></script>
-	<script src="../../../js/tween.js"></script>
-	<script src="../../../js/upload.js"></script>
-	<script src="../../../js/peer.js"></script>-->
 	
 	<script src="../three/Three59.js"></script>
 	<script src="../shaders/EffectComposer.js"></script>
@@ -39,6 +44,7 @@
 	<script src="../physics/p2.extras.js"></script>
 	<script src="../GX2Utilities.js"></script>
 	<script src="../GX2.js"></script>
+	<script src="../GX2Physics.js"></script>
 	<script src="../GX2Controls.js"></script>
 	<script src="../GX2System.js"></script>
 	<script src="../GX2Visualizers.js"></script>
@@ -51,7 +57,7 @@
 
 <script> 
 
-/* Simple GX2 Example Script   
+/* Simple ../../GX2 Example Script   
  * @author brokedRobot / http://www.prismshards.com/
  */
 
@@ -62,17 +68,16 @@
 	var winH = 0; var conH = 0; var oldconH = 0;
 
 	window.onbeforeunload = function(e) {
-		/*if (gs && gs.areasinmemory){
+		if (gs && gs.areasinmemory) 
 			setLocalDBObject('areasinmemory', gs.areasinmemory);
-		}*/
 	};
 	 
 	function beginGS(){
 
 		windowready = true;
+		console.log('docready');
 		
 		gs = new GX2System({
-			name: 'gs1',
 			container: document.getElementById('gs_container_1'),
 			createArea: createArea,
 			firstarea: 'initial',
@@ -116,6 +121,8 @@
 		clearInterval(thisGame);
 		beginGS();
 	});
+
+//**************  AREAS  *******************//
 
 // Instantiates Areas   
 function createArea(name, opts) 
