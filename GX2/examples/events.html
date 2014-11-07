@@ -1,111 +1,121 @@
 <!DOCTYPE html>
-<html lang="en" id="htmlcontainer">
+<html id="htmlcontainer" style="width: 100%; height: 100%;">
 
 <head>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Simple Example</title>
 	<meta charset="utf-8">
-	<!--<meta name="viewport" content="user-scalable=yes, minimum-scale=1.5, maximum-scale=1.5">-->
-	<meta name="viewport" content="user-scalable=no, initial-scale=1.0"> 
 	<style>
-		body 
-		{
-			font-family: Monospace;
-			font-weight: bold;
-			background-color: black; /*white;*/
+		body {
+			background-color: black;
 			margin: 0px;
 			overflow: hidden;
 		}
-		#container
-		{
-			overflow-y: hidden;
-		}
-	</style>
-	<style>
-		@font-face {
-			font-family: 'asenine';
-			src: url('er/fonts/asenine.ttf');
-		}
-		@font-face {
-			font-family: 'oldenglish';
-			src: url('er/fonts/oldenglish.ttf');
-		}
 	</style>
 	
-	<div id="_load_fonts" style="display: none;">
-		<div style="font-family: oldenglish;">hack</div><div style="font-family: asinine;">hack</div>
-	</div>
+	<script src="../utils/jquery.min.js"></script>
 	
-	<script type='text/javascript' src="2Dgs/utils/jquery.min.js"></script>
-	<script type='text/javascript' src="2Dgs/utils/Resize.js"></script>
+	<script src="../three/Three59.js"></script>
+	<script src="../shaders/EffectComposer.js"></script>
+	<script src="../shaders/ShaderExtras.js"></script>
+	<script src="../shaders/ShaderPasses.js"></script>
+	<script src="../shaders/ShaderParticleEmitter.js"></script>
+    <script src="../shaders/ShaderParticleGroup.js"></script>
+	<script src="../utils/KeyboardState.js"></script>
+	<script src="../utils/FullScreen.js"></script>
+	<script src="../utils/FixedQueue.js"></script>
+	<script src="../utils/SimplexNoise.js"></script>
+	<script src="../utils/Detector.js"></script>
+	<script src="../utils/GamePad.js"></script>
+	<script src="../utils/Tween.js"></script>
+	<script src="../utils/AES.js"></script>
+	<script src="../physics/p2.js"></script>
+	<script src="../physics/p2.extras.js"></script>
+	<script src="../GX2Utilities.js"></script>
+	<script src="../GX2.js"></script>
+	<script src="../GX2Controls.js"></script>
+	<script src="../GX2System.js"></script>
+	<script src="../GX2Visualizers.js"></script>
 	
 </head>
 
-<body id="thebody">
+<body id="thebody" style="width: 100%; height: 100%; background: black;">
 
 	<div id="message" class="absolutecentered" style="display: none;"></div> 
 
-	<script type='text/javascript' src="2Dgs/three/Three59.js"></script>
-	<script type='text/javascript' src="2Dgs/shaders/EffectComposer.js"></script>
-	<script type='text/javascript' src="2Dgs/shaders/ShaderExtras.js"></script>
-	<script type='text/javascript' src="2Dgs/shaders/ShaderPasses.js"></script>
-	<script type='text/javascript' src="2Dgs/utils/KeyboardState.js"></script>
-	<script type='text/javascript' src="2Dgs/utils/FullScreen.js"></script>
-	<script type='text/javascript' src="2Dgs/utils/FixedQueue.js"></script>
-	<script type='text/javascript' src='2Dgs/utils/Tween.js'></script>
-	<script type='text/javascript' src="2Dgs/physics/Box2dWeb.min.js"></script>
-	<script type="text/javascript" src="2Dgs/physics/p2.js"></script>
-	<script type="text/javascript" src="2Dgs/physics/p2.extras.js"></script>
-	<script type="text/javascript" src="2Dgs/utils/simplexnoise.js"></script>
-	<script type='text/javascript' src="2Dgs/2DgsUtilities.js"></script>
-	<script type='text/javascript' src="2Dgs/2Dgs.js"></script>
-	<script type='text/javascript' src="2Dgs/2DgsControls.js"></script>
-	<script type='text/javascript' src="2Dgs/2DgsSetup.js"></script>
-	<script type='text/javascript' src="2Dgs/2DgsSetupHud.js"></script>
-	<script type='text/javascript' src="2Dgs/2DgsSetupPhysics.js"></script>
-	<script type='text/javascript' src="2Dgs/utils/Detector.js"></script>
-	<script type="text/javascript" src="2Dgs/shaders/ShaderParticleEmitter.js"></script>
-    <script type="text/javascript" src="2Dgs/shaders/ShaderParticleGroup.js"></script>
-	<script type="text/javascript" src="2Dgs/utils/Resize.js"></script>
-	<script type="text/javascript" src="2Dgs/utils/AES.js"></script>
-	<script type="text/javascript" src="2Dgs/utils/Storage.js"></script>
-	<script type="text/javascript" src="2Dgs/utils/gamepad.js"></script>
-  
 <script> 
 
-/* Simple 2Dgs Example Script   
+/* Simple GX2 Example Script   
  * @author brokedRobot / http://www.prismshards.com/
- */ 
- 
-    var firstarea = 'initial';
-	var physicstype = 'p2';
-	var gait = 1;
-	var __debug_1_active = 1;
-	var debuginit = function(){
-	
-	}
-	var debugupdate = function(){
-	
+ */
+
+	var gs;
+	var windowready = false;
+
+	var winW = 0; var conW = 0; var oldconW = 0;
+	var winH = 0; var conH = 0; var oldconH = 0;
+
+	window.onbeforeunload = function(e) {
+		/*if (gs && gs.areasinmemory){
+			setLocalDBObject('areasinmemory', gs.areasinmemory);
+		}*/
+	};
+	 
+	function beginGS(){
+
+		windowready = true;
+		
+		gs = new GX2System({
+			name: 'gs1',
+			container: document.getElementById('gs_container_1'),
+			createArea: createArea,
+			firstarea: 'initial',
+			autocenter: true,
+			tweenupdating: true,
+			sideborder: true,
+			pauseonblur: true,
+			attachpath: '../'
+		});
+
+		window.onresize = function(){
+		
+			winW = window.innerWidth; conW = oldconW;
+			winH = window.innerHeight; conH = oldconH; 
+			
+			var maxsize = winH*1.50; var leftoffset = 0;
+			
+			leftoffset = ((winW - conW*1.5) / 2);
+			if (winW > maxsize) winW = maxsize;
+			winW *= window.devicePixelRatio;
+			
+			oldconW = winW * 0.68; oldconH = oldconW * 0.60;
+			if (leftoffset < 0) leftoffset = 0;
+		
+			for (var i=0; i<systems.length; i++) systems[i].resize();
+			
+		}
+		
+		window.onresize();
+		
 	}
 
-  // Detect whether WebGL capable, Canvas capable, etc.
-    if ( Detector.webgl ) webGLCapable = true;
-	else {
-		alert('You need a WebGL compatible browser to continue!\
-				Try the help section for some advice and helpful links!');
-		window.location = 'http://www.prismshards.com/help';
-	}
-  
-  // Begin processing
-    initScene();
-    animate();
+	var thisGame = setInterval(function(){
+		if ($('#gs_container_1').length){
+			clearInterval(thisGame);
+			beginGS();
+		}
+	}, 600);
+
+	document.addEventListener('DOMContentLoaded', function(){
+		clearInterval(thisGame);
+		beginGS();
+	});
 
 //**************  GAME AREAS  *******************//
 
-// Instantiates Game Areas   
-function createGameArea(name, opts) 
-{
+function createArea(name, opts){
+
 	for (var i = 0; i < areasinmemory.length; i++) {
 		if (areasinmemory[i] !== null){
 			if (areasinmemory[i].name === name){
@@ -117,7 +127,7 @@ function createGameArea(name, opts)
 //*******************************Initial Area***********************************// 
     case 'initial':
 	
-        var thisarea = new GameArea({name: 'initial'});
+        var thisarea = new GX2Area({name: 'initial'});
 
 		var t = 1.0;
 			
@@ -324,6 +334,10 @@ function createGameArea(name, opts)
 }
 
 </script>
+
+	<div class="noselect" id="gs_container_1" style="width: 100%;
+		height: 100%; background: none; overflow: hidden; position: absolute;
+		left: 0%; top: 0%; display: block; z-index: 4000;"></div>
 
 </body>
 </html>
